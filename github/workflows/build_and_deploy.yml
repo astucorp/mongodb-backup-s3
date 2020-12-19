@@ -1,0 +1,24 @@
+name: Build Docker Image
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-front:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build & Push Backup image
+        uses: docker/build-push-action@v1
+        with:
+          dockerfile: Dockerfile
+          username: ${{ github.actor }}
+          password: ${{ secrets.GH_PACKAGES_PUSH_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: astucorp/astuvet/mongodb-backup-s3
+          tag_with_ref: true
+          tag_with_sha: true
+          push: true
