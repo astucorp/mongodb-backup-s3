@@ -23,7 +23,7 @@ printenv | sed 's/^\([a-zA-Z0-9_]*\)=\(.*\)$/export \1="\2"/g' | grep -E "^expor
 if [ -z "$MONGODB_URI" ] ;then
     MONGODUMP_CONNECTION_ARGS="--host ${MONGODB_HOST} --port ${MONGODB_PORT} ${USER_STR}${PASS_STR}${DB_STR}"
 else
-    MONGODUMP_CONNECTION_ARGS="${MONGODB_URI}"
+    MONGODUMP_CONNECTION_ARGS="\"${MONGODB_URI}\""
 fi
 
 echo "=> Creating backup script"
